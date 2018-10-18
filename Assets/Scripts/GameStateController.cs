@@ -36,8 +36,8 @@ public class GameStateController : MonoBehaviour {
 		case 10:
 			if (Input.GetKeyDown (KeyCode.Tab)) {
 				state = 4;
-				bonesScreen = GameObject.FindGameObjectWithTag ("Bones");
-				bonesScreen.SetActive (true);
+				bonesScreen = GameObject.FindWithTag ("Bones");
+				bonesScreen.transform.GetChild (0).gameObject.SetActive (true);
 			}
 			break;
 		}
