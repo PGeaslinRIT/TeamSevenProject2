@@ -5,6 +5,7 @@ using UnityEngine;
 public class BoneEffectsController : MonoBehaviour {
 	//broken bone trackers
 	public Dictionary<string, int> brokenBones = new Dictionary<string, int>();
+
 	public int maxBrokenBones = 3;
 	public int armLegCount = 2;
 
@@ -24,13 +25,17 @@ public class BoneEffectsController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKey(KeyCode.Alpha1)) {
+		if (Input.GetKeyUp(KeyCode.Alpha1)) {
 			BreakBone ("ribs");
+			Debug.Log ("Breaking ribs to increase windspeed");
+		} else if (Input.GetKeyUp(KeyCode.Alpha2)) {
+			BreakBone ("ribs", false);
+			Debug.Log ("Breaking ribs to decrease windspeed");
 		}
 	}
 
 	//Method to break a specific bone
-	bool BreakBone (string bone) {
+	bool BreakBone (string bone, bool increase = true) {
 		int breakLimit = maxBrokenBones;
 
 		//arms and legs have a higher limit than other bones
@@ -47,10 +52,10 @@ public class BoneEffectsController : MonoBehaviour {
 
 		switch (bone) {
 		case "arms":
-			
+			thisWeatherController.ChangePrecipitation (increase);			
 			break;
 		case "legs":
-
+			thisWeatherController.ChangeTemperature (increase);
 			break;
 		case "skull":
 
@@ -62,7 +67,7 @@ public class BoneEffectsController : MonoBehaviour {
 
 			break;
 		case "ribs":
-			thisWeatherController.CreateWind ();
+			thisWeatherController.ChangeWind (increase);
 			break;
 		}
 

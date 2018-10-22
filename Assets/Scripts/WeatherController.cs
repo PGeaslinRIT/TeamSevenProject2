@@ -6,6 +6,7 @@ public class WeatherController : MonoBehaviour {
 	public int temperature = 0;
 	public int precipitation = 0;
 	public int windSpeed = 0;
+	private bool windIncrease = true;
 	public Vector3 windDir = Vector3.zero;
 	public Vector3 windForce = Vector3.zero;
 
@@ -20,7 +21,12 @@ public class WeatherController : MonoBehaviour {
 	void Update () {
 		if (Input.GetMouseButtonDown(0)) {
 			if (awaitWindCapture) {
-				windDir = gameObject.transform.forward;
+				windDir = gameObject.transform.FindChild ("MainCamera").transform.forward;
+				if (windIncrease) {
+					windSpeed++;
+				} else if (windSpeed > 0) {
+					windSpeed--;
+				}
 				awaitWindCapture = false;
 			}
 		}
@@ -29,18 +35,26 @@ public class WeatherController : MonoBehaviour {
 	}
 
 	//methods to change weather tied to bones
+
+	//creates wind in the direction of the camera
+	public void ChangeWind(bool increase = true) {
+		windIncrease = increase;
+
+		awaitWindCapture = true;
+
+		Debug.Log ("Awaiting wind capture");
+	}
+
 	//increases or decreases precipitation
 	public void ChangePrecipitation(bool increase = true) {
 	}
 
-	//creates wind in the direction of the camera
-	public void CreateWind(bool increase = true) {
-		if (increase) {
-			windSpeed++;
-		} else {
-			windSpeed--;
-		}
-
-		awaitWindCapture = true;
+	//increases or decreases temperature
+	public void ChangeTemperature(bool increase = true) {
 	}
+
+	//creates lightning
+	public void CreateLightning() {}
+
+	//
 }
