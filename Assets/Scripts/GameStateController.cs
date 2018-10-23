@@ -8,7 +8,9 @@ public class GameStateController : MonoBehaviour {
 	public GameObject player;
 	public GameObject playerCam;
 	public GameObject guiCam;
+	public GameObject tempScreen;
 	public int state;
+	public int currState;
 
 	// Use this for initialization
 	void Start () {
@@ -35,9 +37,16 @@ public class GameStateController : MonoBehaviour {
 			break;
 		case 4:
 			if (Input.GetKeyDown (KeyCode.Tab)) {
-				state = 10;
+				//change the state
+				state = currState;
+
+				//make the bone screen disappear
 				bonesScreen.transform.GetChild (0).gameObject.SetActive (false);
+
+				//makes the camera for the gui disappear
 				guiCam.SetActive (false);
+
+				//unfreeze the player
 				player.SetActive (true);
 				playerCam.SetActive (true);
 			}
@@ -46,15 +55,23 @@ public class GameStateController : MonoBehaviour {
 			break;
 		case 10:
 			if (Input.GetKeyDown (KeyCode.Tab)) {
-				state = 4;
-				bonesScreen.transform.GetChild (0).gameObject.SetActive (true);
-				bonesScreen.transform.position = player.transform.position;
-				bonesScreen.transform.right = player.transform.right;
+				//set the current state
+				currState = state;
 
-				//
+				//change the state
+				state = 4;
+
+				//make the bone screen appear in front of the player
+				bonesScreen.transform.GetChild (0).gameObject.SetActive (true);
+				bonesScreen.transform.position = tempScreen.transform.position;
+				bonesScreen.transform.rotation = tempScreen.transform.rotation;
+
+				//makes the camera for the gui appear
 				guiCam.SetActive (true);
 				guiCam.transform.position = playerCam.transform.position;
-				guiCam.transform.right = playerCam.transform.right;
+				guiCam.transform.rotation = playerCam.transform.rotation;
+
+				//freeze the player
 				player.SetActive (false);
 				playerCam.SetActive (false);
 			}
