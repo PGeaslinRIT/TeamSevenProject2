@@ -43,7 +43,7 @@ public class GameStateController : MonoBehaviour {
 				//make the bone screen disappear
 				bonesScreen.transform.GetChild (0).gameObject.SetActive (false);
 
-				//makes the camera for the gui disappear
+				//make the camera for the gui disappear
 				guiCam.SetActive (false);
 
 				//unfreeze the player
@@ -66,7 +66,7 @@ public class GameStateController : MonoBehaviour {
 				bonesScreen.transform.position = tempScreen.transform.position;
 				bonesScreen.transform.rotation = tempScreen.transform.rotation;
 
-				//makes the camera for the gui appear
+				//make the camera for the gui appear
 				guiCam.SetActive (true);
 				guiCam.transform.position = playerCam.transform.position;
 				guiCam.transform.rotation = playerCam.transform.rotation;
