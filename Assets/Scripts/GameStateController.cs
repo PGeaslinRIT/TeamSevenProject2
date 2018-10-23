@@ -10,7 +10,7 @@ public class GameStateController : MonoBehaviour {
 	public GameObject guiCam;
 	public GameObject tempScreen;
 	public int state;
-	public int currState;
+	private int currState;
 
 	// Use this for initialization
 	void Start () {
