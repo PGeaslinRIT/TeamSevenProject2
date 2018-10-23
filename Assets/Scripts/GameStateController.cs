@@ -5,6 +5,9 @@ using UnityEngine;
 public class GameStateController : MonoBehaviour {
 
 	public GameObject bonesScreen;
+	public GameObject player;
+	public GameObject playerCam;
+	public GameObject guiCam;
 	public int state;
 
 	// Use this for initialization
@@ -19,6 +22,7 @@ public class GameStateController : MonoBehaviour {
 			state = 5;
 		} else if (gameObject.scene.name == "sandbox") {
 			state = 10;
+			bonesScreen = GameObject.FindWithTag ("Bones");
 		}
 	}
 	
@@ -30,14 +34,29 @@ public class GameStateController : MonoBehaviour {
 		case 3:
 			break;
 		case 4:
+			if (Input.GetKeyDown (KeyCode.Tab)) {
+				state = 10;
+				bonesScreen.transform.GetChild (0).gameObject.SetActive (false);
+				guiCam.SetActive (false);
+				player.SetActive (true);
+				playerCam.SetActive (true);
+			}
 			break;
 		case 5:
 			break;
 		case 10:
 			if (Input.GetKeyDown (KeyCode.Tab)) {
 				state = 4;
-				bonesScreen = GameObject.FindWithTag ("Bones");
 				bonesScreen.transform.GetChild (0).gameObject.SetActive (true);
+				bonesScreen.transform.position = player.transform.position;
+				bonesScreen.transform.right = player.transform.right;
+
+				//
+				guiCam.SetActive (true);
+				guiCam.transform.position = playerCam.transform.position;
+				guiCam.transform.right = playerCam.transform.right;
+				player.SetActive (false);
+				playerCam.SetActive (false);
 			}
 			break;
 		}
