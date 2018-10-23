@@ -9,8 +9,12 @@ public class GameStateController : MonoBehaviour {
 	public GameObject playerCam;
 	public GameObject guiCam;
 	public GameObject tempScreen;
+	public GameObject environment;
+	private Dictionary<string,int> brokenBones;
 	public int state;
 	private int currState;
+
+	private GameObject ribs;
 
 	// Use this for initialization
 	void Start () {
@@ -25,6 +29,8 @@ public class GameStateController : MonoBehaviour {
 		} else if (gameObject.scene.name == "sandbox") {
 			state = 10;
 			bonesScreen = GameObject.FindWithTag ("Bones");
+			ribs = bonesScreen.transform.GetChild (0).GetChild (0).gameObject;
+			brokenBones = player.GetComponent<BoneEffectsController> ().brokenBones;
 		}
 	}
 	
@@ -49,6 +55,8 @@ public class GameStateController : MonoBehaviour {
 				//unfreeze the player
 				player.SetActive (true);
 				playerCam.SetActive (true);
+
+				environment.SetActive(true);
 			}
 			break;
 		case 5:
@@ -74,6 +82,11 @@ public class GameStateController : MonoBehaviour {
 				//freeze the player
 				player.SetActive (false);
 				playerCam.SetActive (false);
+
+				//
+				environment.SetActive(false);
+
+				ribs.GetComponent<TextMesh> ().text = "Broken Ribs: " + brokenBones ["ribs"];
 			}
 			break;
 		}

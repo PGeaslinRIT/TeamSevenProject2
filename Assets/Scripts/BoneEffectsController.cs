@@ -44,7 +44,7 @@ public class BoneEffectsController : MonoBehaviour {
 		}
 
 		//check if bone has reached break limit
-		if (brokenBones[bone] + 1 >= breakLimit) {
+		if (brokenBones[bone]>= breakLimit) {
 			return false;
 		} else {
 			brokenBones[bone]++;
